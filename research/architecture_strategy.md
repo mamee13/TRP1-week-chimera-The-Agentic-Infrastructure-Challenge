@@ -131,7 +131,32 @@ The system implements **GitHub Spec Kit** framework for AI-agent collaboration.
 
 ---
 
-## 10. System Architecture Diagram
+## 10. Operational Excellence & Reliability
+
+### Runbooks & Standard Operating Procedures:
+- **Agent Swarm Recovery:** Step-by-step procedures for restarting failed Planner/Worker/Judge services
+- **MCP Server Connection Failures:** Troubleshooting guide for agent connectivity issues to external tools
+- **HITL Queue Overflow:** Procedures when confidence-based escalations exceed human review capacity
+- **Wallet Security Incidents:** Emergency protocols for compromised agent wallets or suspicious transactions
+- **Content Moderation Escalation:** Response procedures for viral negative content or platform violations
+
+### Failover & Rollback Plans:
+- **Agent Persona Rollback:** Procedures to revert to previous SOUL.md versions if persona updates cause behavioral issues
+- **Database Failover:** PostgreSQL cluster failover and Weaviate backup restoration procedures
+- **MCP Server Redundancy:** Fallback mechanisms when primary MCP servers (Twitter, Coinbase) are unavailable
+- **Campaign Emergency Stops:** Automated and manual procedures for runaway agent behavior or budget overruns
+- **Multi-Region Deployment:** Geographic failover strategies for agent swarms during cloud outages
+
+### Key Performance Indicators (KPIs):
+- **Agent Performance Metrics:** Task completion rates (>95%), average confidence scores (>0.80), HITL escalation rates (<10%)
+- **Financial Health Indicators:** Daily spend vs. budget variance (<5%), transaction success rates (>99%), wallet balance thresholds
+- **Content Quality Metrics:** Engagement rates, brand safety violations (<0.1%), content approval/rejection ratios
+- **System Reliability KPIs:** Agent uptime (>99.9%), MCP connection stability (>99%), response latency SLAs (<10s)
+- **Business Impact Metrics:** Revenue per agent, cost per engagement, campaign ROI measurements (>300%)
+
+---
+
+## 11. System Architecture Diagram
 
 ```mermaid
 graph TD
@@ -191,3 +216,5 @@ graph TD
 - Failing tests define the "contract" that AI agents must fulfill during implementation.
 - Spec alignment is validated automatically in CI/CD pipeline before deployment.
 - Agent-to-Agent communication follows OpenClaw protocols for ecosystem interoperability.
+- Operational runbooks and KPI monitoring are mandatory for production deployment.
+- All failure scenarios must have documented rollback procedures and automated alerts.
