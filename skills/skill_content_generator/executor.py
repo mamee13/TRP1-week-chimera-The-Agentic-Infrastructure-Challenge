@@ -47,7 +47,7 @@ class SkillContentGenerator(BaseSkill):
 
         return WorkerTaskOutput(
             task_id=task_input.task_id,
-            result=result.dict(),
+            result=result.model_dump(),
             confidence_score=0.95,
             reasoning="Content generated successfully based on persona constraints and style guidelines."
         )
