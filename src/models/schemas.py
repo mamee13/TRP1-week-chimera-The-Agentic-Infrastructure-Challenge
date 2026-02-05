@@ -39,6 +39,7 @@ class WorkerTaskInput(BaseModel):
 
 class WorkerTaskOutput(BaseModel):
     task_id: UUID
+    skill_name: str
     result: Any
     confidence_score: float
     reasoning: str

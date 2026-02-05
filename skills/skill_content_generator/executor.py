@@ -32,6 +32,7 @@ class SkillContentGenerator(BaseSkill):
         except Exception as e:
             return WorkerTaskOutput(
                 task_id=task_input.task_id,
+                skill_name=self.name,
                 result=None,
                 confidence_score=0.0,
                 reasoning=f"Invalid parameters for {self.name}: {str(e)}"
@@ -47,6 +48,7 @@ class SkillContentGenerator(BaseSkill):
 
         return WorkerTaskOutput(
             task_id=task_input.task_id,
+            skill_name=self.name,
             result=result.model_dump(),
             confidence_score=0.95,
             reasoning="Content generated successfully based on persona constraints and style guidelines."

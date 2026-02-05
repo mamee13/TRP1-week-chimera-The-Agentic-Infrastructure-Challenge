@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List, Optional, Dict
 from src.models.schemas import Campaign, WorkerTaskInput, WorkerTaskOutput, JudgeValidationOutput, TaskStatus
 
 class BaseSwarmMember(ABC):

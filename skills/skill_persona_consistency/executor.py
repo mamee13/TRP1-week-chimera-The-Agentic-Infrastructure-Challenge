@@ -30,6 +30,7 @@ class SkillPersonaConsistency(BaseSkill):
         except Exception as e:
             return WorkerTaskOutput(
                 task_id=task_input.task_id,
+                skill_name=self.name,
                 result=None,
                 confidence_score=0.0,
                 reasoning=f"Invalid parameters: {str(e)}"
@@ -45,6 +46,7 @@ class SkillPersonaConsistency(BaseSkill):
 
         return WorkerTaskOutput(
             task_id=task_input.task_id,
+            skill_name=self.name,
             result=report.model_dump(),
             confidence_score=score,
             reasoning="Verified content against SOUL.md constraints using hierarchical memory retrieval."

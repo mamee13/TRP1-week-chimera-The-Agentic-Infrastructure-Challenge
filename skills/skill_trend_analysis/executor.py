@@ -31,6 +31,7 @@ class SkillTrendAnalysis(BaseSkill):
         except Exception as e:
             return WorkerTaskOutput(
                 task_id=task_input.task_id,
+                skill_name=self.name,
                 result=None,
                 confidence_score=0.0,
                 reasoning=f"Invalid parameters: {str(e)}"
@@ -50,6 +51,7 @@ class SkillTrendAnalysis(BaseSkill):
 
         return WorkerTaskOutput(
             task_id=task_input.task_id,
+            skill_name=self.name,
             result=report.model_dump(),
             confidence_score=0.92,
             reasoning=f"Analyzed {params.topic} trends using cross-platform MCP signals. High viral potential detected."
