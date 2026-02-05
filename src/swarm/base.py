@@ -8,33 +8,51 @@ class BaseSwarmMember(ABC):
         self.name = name
 
 class Planner(BaseSwarmMember):
-    """Responsible for decomposing goals into tasks (DAG)."""
+    """
+    The Strategist: Decomposes high-level campaign goals into actionable tasks.
+    Maintains the 'Big Picture' and handles dynamic re-planning based on feedback.
+    """
     @abstractmethod
     async def create_plan(self, campaign: Campaign) -> List[WorkerTaskInput]:
+        """Convert a campaign goal into a Directed Acyclic Graph (DAG) of Worker tasks."""
         pass
 
     @abstractmethod
     async def replan(self, campaign: Campaign, feedback: str) -> List[WorkerTaskInput]:
+        """Adjust the existing plan based on execution failures or environment context shifts."""
         pass
 
 class Worker(BaseSwarmMember):
-    """Stateless executor of atomic tasks using Skills."""
+    """
+    The Executor: Stateless agent that performs atomic tasks using specialized Skills.
+    Utilizes MCP Tools for all external interactions.
+    """
     @abstractmethod
     async def perform_task(self, task_input: WorkerTaskInput) -> WorkerTaskOutput:
+        """Execute a single task using the requested skill and return the result."""
         pass
 
 class Judge(BaseSwarmMember):
-    """Validates Worker output against persona and safety rules."""
+    """
+    The Gatekeeper: Validates output against persona constraints (SOUL.md) and safety rules.
+    Implements confidence-based Human-in-the-Loop (HITL) escalation.
+    """
     @abstractmethod
     async def validate_output(self, worker_output: WorkerTaskOutput) -> JudgeValidationOutput:
+        """Validate worker output and route to HITL if confidence is below threshold."""
         pass
 
 class Orchestrator(BaseSwarmMember):
-    """Manages global state, health, and swarm coordination."""
+    """
+    The Manager: Maintains global state in PostgreSQL and monitors swarm health.
+    Coordinates the transaction-level movement between Planner, Worker, and Judge.
+    """
     @abstractmethod
     async def monitor_health(self) -> Dict[str, bool]:
+        """Perform health checks on active agents and MCP servers."""
         pass
 
     @abstractmethod
     async def run_swarm(self, campaign: Campaign):
+        """Execute the primary control loop for campaign management."""
         pass

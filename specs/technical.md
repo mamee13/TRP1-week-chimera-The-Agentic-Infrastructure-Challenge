@@ -18,6 +18,29 @@
 - `confidence_score`: FLOAT
 - `status`: ENUM ('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED', 'ESC_HITL')
 
+### 1.3 Database ERD (Entity Relationship Diagram)
+
+```mermaid
+erDiagram
+    CAMPAIGN ||--o{ TASK : contains
+    CAMPAIGN {
+        uuid id PK
+        string title
+        text goal
+        enum status
+        int state_version
+    }
+    TASK {
+        uuid id PK
+        uuid campaign_id FK
+        enum role
+        jsonb input_data
+        jsonb output_data
+        float confidence_score
+        enum status
+    }
+```
+
 ## 2. Pydantic Models
 
 ### 2.1 Worker Interface
@@ -38,6 +61,11 @@ class WorkerTaskOutput(BaseModel):
 ## 3. Hybrid Data Layer
 - **PostgreSQL:** ACID transactional state.
 - **Weaviate:** Semantic memory (Vector DB).
+  - **Class: `PersonaMemory`**
+    - `persona_id`: text (Keyword)
+    - `content`: text (Vectorized)
+    - `category`: text (Episodic, Semantic, SOUL)
+    - `timestamp`: date
 - **Redis:** Episodic context (Task/Review Queues).
 
 ## 4. MCP Communication
