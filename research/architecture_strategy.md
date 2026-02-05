@@ -15,7 +15,7 @@ I reject monolithic agent designs in favor of a specialized, role-based **FastRe
 
 ---
 
-## 2. Human-in-the-Loop (HITL) & Governance
+## 3. Human-in-the-Loop (HITL) & Governance
 Safety is enforced through automated "Management by Exception" with dynamic confidence scoring.
 
 - **Confidence Scoring Framework:** Every Worker output includes a confidence_score (0.0-1.0) derived from LLM probability estimation.
@@ -28,7 +28,7 @@ Safety is enforced through automated "Management by Exception" with dynamic conf
 
 ---
 
-## 3. Persona Management System
+## 4. Persona Management System
 Each agent maintains persistent identity through the **SOUL.md** framework and hierarchical memory retrieval.
 
 ### Core Components:
@@ -41,7 +41,7 @@ Each agent maintains persistent identity through the **SOUL.md** framework and h
 
 ---
 
-## 4. Perception System (Data Ingestion)
+## 5. Perception System (Data Ingestion)
 Agents "perceive" the digital world exclusively through **MCP Resources** with intelligent filtering.
 
 ### Architecture:
@@ -52,7 +52,7 @@ Agents "perceive" the digital world exclusively through **MCP Resources** with i
 
 ---
 
-## 5. Creative Engine (Content Generation)
+## 6. Creative Engine (Content Generation)
 Multimodal content production with character consistency and quality validation.
 
 ### Generation Pipeline:
@@ -65,7 +65,7 @@ Multimodal content production with character consistency and quality validation.
 
 ---
 
-## 6. Data Storage Strategy
+## 7. Data Storage Strategy
 I utilize a hybrid data layer to handle both relational state and semantic memory.
 
 | Component | Choice | Justification |
@@ -80,7 +80,7 @@ I utilize a hybrid data layer to handle both relational state and semantic memor
 
 ---
 
-## 7. Agent-to-Agent (A2A) Protocols
+## 8. Agent-to-Agent (A2A) Protocols
 For OpenClaw ecosystem integration, Chimera agents implement standardized social protocols.
 
 ### Required A2A Capabilities:
@@ -91,7 +91,7 @@ For OpenClaw ecosystem integration, Chimera agents implement standardized social
 
 ---
 
-## 8. Tools vs. Skills: The Separation of Concerns
+## 9. Tools vs. Skills: The Separation of Concerns
 To achieve "Orchestrator-grade" architecture, I maintain a strict distinction:
 - **MCP Servers (Infrastructure):** External bridges that provide *connectivity* to the outside world (e.g., a Database connector, Twitter API wrapper).
 - **Skills (Runtime Capabilities):** Internal, reusable logic packages that the agent invokes to perform *actions* (e.g., `skill_content_generator`, `skill_trend_fetcher`). Skills are defined by their I/O contracts in the `skills/` directory.
@@ -105,58 +105,33 @@ Each skill must define:
 
 ---
 
-## 9. Development Governance & Spec-Driven Architecture
-The system implements **GitHub Spec Kit** framework for AI-agent collaboration.
-
-### Spec-Driven Development (SDD):
-- **specs/** directory structure as source of truth
-- **specs/_meta.md:** High-level vision and constraints
-- **specs/functional.md:** User stories and agent requirements
-- **specs/technical.md:** API contracts, database schemas, integration protocols
-- **specs/openclaw_integration.md:** A2A protocol specifications
-
-### Test-Driven Development Integration:
-- **Failing Tests as Contracts:** Tests define "empty slots" that AI agents must fill
-- **test_skills_interface.py:** Validates skill I/O contracts
-- **test_trend_fetcher.py:** Asserts data structure compliance
-- **Spec Alignment Validation:** Automated checking that implementation matches specifications
-
-### CI/CD Governance Pipeline:
-- **Pre-Commit Hooks:** Spec alignment validation, code quality gates, security scanning, and test contract validation
-- **Post-Commit Hooks:** Automated documentation updates, CI/CD pipeline triggers, and agent context refreshes
-- **GitHub Actions:** Automated testing on every commit
-- **AI Code Review:** CodeRabbit integration for spec alignment and security validation
-- **make spec-check:** Command to verify code-to-spec traceability
-- **Docker Containerization:** Environment consistency across development and production
+## 10. Failover & Disaster Recovery (DR)
+Safety and continuity are ensured through a robust recovery architecture.
+- **Multi-Region Availability:** Stateless Worker agents deployed across multiple cloud regions (e.g., AWS us-east-1 and eu-west-1).
+- **Database Replication:** PostgreSQL utilize cross-region Read Replicas for immediate failover. Weaviate clusters use multi-node replication factors.
+- **State Recovery:** Task Queue (Redis) persistence enabled with RDB/AOF. In case of swarm-level failure, Planners reconstruct the DAG state from PostgreSQL logs.
+- **RTO/RPO:** Target Recovery Time Objective (RTO) < 5 mins; Recovery Point Objective (RPO) < 1 min for transactional data.
 
 ---
 
-## 10. Operational Excellence & Reliability
-
-### Runbooks & Standard Operating Procedures:
-- **Agent Swarm Recovery:** Step-by-step procedures for restarting failed Planner/Worker/Judge services
-- **MCP Server Connection Failures:** Troubleshooting guide for agent connectivity issues to external tools
-- **HITL Queue Overflow:** Procedures when confidence-based escalations exceed human review capacity
-- **Wallet Security Incidents:** Emergency protocols for compromised agent wallets or suspicious transactions
-- **Content Moderation Escalation:** Response procedures for viral negative content or platform violations
-
-### Failover & Rollback Plans:
-- **Agent Persona Rollback:** Procedures to revert to previous SOUL.md versions if persona updates cause behavioral issues
-- **Database Failover:** PostgreSQL cluster failover and Weaviate backup restoration procedures
-- **MCP Server Redundancy:** Fallback mechanisms when primary MCP servers (Twitter, Coinbase) are unavailable
-- **Campaign Emergency Stops:** Automated and manual procedures for runaway agent behavior or budget overruns
-- **Multi-Region Deployment:** Geographic failover strategies for agent swarms during cloud outages
-
-### Key Performance Indicators (KPIs):
-- **Agent Performance Metrics:** Task completion rates (>95%), average confidence scores (>0.80), HITL escalation rates (<10%)
-- **Financial Health Indicators:** Daily spend vs. budget variance (<5%), transaction success rates (>99%), wallet balance thresholds
-- **Content Quality Metrics:** Engagement rates, brand safety violations (<0.1%), content approval/rejection ratios
-- **System Reliability KPIs:** Agent uptime (>99.9%), MCP connection stability (>99%), response latency SLAs (<10s)
-- **Business Impact Metrics:** Revenue per agent, cost per engagement, campaign ROI measurements (>300%)
+## 11. Operational Runbooks
+Standardized procedures for routine maintenance and minor incident response.
+- **RB-001: Agent Stall Recovery:** Procedure to identify and restart "zombie" Worker agents using the Orchestrator health check tool.
+- **RB-002: Cache Invalidation:** Standard commands to flush specific Redis keys when persona context becomes corrupted or outdated.
+- **RB-003: Database Migration:** Blue-Green deployment strategy for PostgreSQL schema updates to ensure zero-downtime for active campaigns.
+- **RB-004: Tooling Reset:** Hard-reset protocol for MCP servers when bridge connectivity fails.
 
 ---
 
-## 11. System Architecture Diagram
+## 12. Ops Playbooks (Emergency Response)
+High-level strategic response plans for critical security or infrastructure events.
+- **PB-001: MoltBook-Style Breach:** Immediate non-custodial wallet freeze, secret rotation (Vault/AWS Secrets Manager), and automated audit log export.
+- **PB-002: LLM Provider Outage:** Dynamic switching to secondary LLM provider (e.g., Anthropic to Gemini) via the Orchestrator's provider-agnostic abstraction layer.
+- **PB-003: Malicious Input/Injection:** Automated quarantine of the affected agent sub-swarm and mandatory HITL review for all pending outputs from that persona.
+
+---
+
+## 13. System Architecture Diagram
 
 ```mermaid
 graph TD
@@ -216,5 +191,3 @@ graph TD
 - Failing tests define the "contract" that AI agents must fulfill during implementation.
 - Spec alignment is validated automatically in CI/CD pipeline before deployment.
 - Agent-to-Agent communication follows OpenClaw protocols for ecosystem interoperability.
-- Operational runbooks and KPI monitoring are mandatory for production deployment.
-- All failure scenarios must have documented rollback procedures and automated alerts.
