@@ -1,7 +1,7 @@
 # Architecture Strategy: The FastRender Swarm
 
 ## 1. Core Methodology: GitHub Spec Kit
-Project Chimera adheres to the **GitHub Spec Kit** framework for **Spec-Driven Development (SDD)**. 
+Project Chimera adheres to the **GitHub Spec Kit** framework for **Spec-Driven Development (SDD)**.
 - **Specs as Source of Truth:** Implementation never precedes ratified specifications.
 - **Ambiguity Reduction:** Every functional and technical requirement is defined for machine-readability, ensuring that downstream AI agents can build features without hallucination.
 
@@ -136,27 +136,27 @@ High-level strategic response plans for critical security or infrastructure even
 ```mermaid
 graph TD
     User["Network Operator"] -- Sets Goals --> Orchestrator
-    
+
     subgraph "Swarm Core"
         Orchestrator --> Planner
         Planner -- "Task Queue (Redis)" --> Worker
         Worker -- "Review Queue" --> Judge
         Judge -- Re-evaluates --> Planner
         Judge -- Commits State --> GlobalState[(PostgreSQL)]
-        
+
         subgraph "Persona System"
             SOUL[SOUL.md] --> Planner
             Weaviate[(Semantic Memory)] --> Worker
             Redis_Cache[(Episodic Cache)] --> Worker
         end
-        
+
         subgraph "Perception Layer"
             Resources[MCP Resources] --> SemanticFilter[Semantic Filter]
             SemanticFilter --> TrendSpotter[Trend Spotter]
             TrendSpotter --> Planner
         end
     end
-    
+
     subgraph "External World (MCP)"
         Worker -- "Call Tool" --> MCP_Host["MCP Host Client"]
         MCP_Host --> Twitter_Srv[mcp-server-twitter]
@@ -164,18 +164,18 @@ graph TD
         MCP_Host --> Weaviate_Srv[mcp-server-weaviate]
         MCP_Host --> Creative_Srv[mcp-server-ideogram/runway]
     end
-    
+
     subgraph "Governance Layer"
         Judge -- "Confidence < 0.9" --> HITL["HITL Dashboard"]
         HITL -- Approve/Reject --> Judge
         Judge -- "OCC Check" --> StateVersion[state_version]
     end
-    
+
     subgraph "A2A Network (OpenClaw)"
         Orchestrator -- "Status Broadcast" --> A2A_Network[Agent Social Network]
         A2A_Network -- "Service Requests" --> Orchestrator
     end
-    
+
     subgraph "Development Governance"
         Specs[specs/ directory] --> CI_CD[GitHub Actions]
         CI_CD --> Tests[Failing Tests]

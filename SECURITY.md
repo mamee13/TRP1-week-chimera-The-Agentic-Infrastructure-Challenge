@@ -210,5 +210,5 @@ To request data deletion:
 
 ---
 
-**Last Updated**: 2026-02-06  
+**Last Updated**: 2026-02-06
 **Security Contact**: mamaruyirga1394@gmail.com

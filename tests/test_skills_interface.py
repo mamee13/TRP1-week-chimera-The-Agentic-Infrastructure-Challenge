@@ -1,8 +1,10 @@
-import pytest
 from uuid import uuid4
-from pydantic import ValidationError, BaseModel
-from src.models.schemas import WorkerTaskInput, WorkerTaskOutput
+
+import pytest
+from pydantic import BaseModel, ValidationError
+
 from skills.base import BaseSkill
+from src.models.schemas import WorkerTaskInput, WorkerTaskOutput
 
 
 class TestWorkerTaskInput:
@@ -15,7 +17,7 @@ class TestWorkerTaskInput:
             "task_id": task_id,
             "skill_name": "test_skill",
             "params": {"query": "test query"},
-            "persona_id": "test_persona"
+            "persona_id": "test_persona",
         }
         task_input = WorkerTaskInput(**input_data)
         assert task_input.task_id == task_id
@@ -40,7 +42,7 @@ class TestWorkerTaskOutput:
             "skill_name": "test_skill",
             "result": {"status": "success"},
             "confidence_score": 0.95,
-            "reasoning": "Test reasoning"
+            "reasoning": "Test reasoning",
         }
         task_output = WorkerTaskOutput(**output_data)
         assert task_output.task_id == task_id
@@ -55,7 +57,7 @@ class MockParams(BaseModel):
 
 class MockSkill(BaseSkill):
     """Mock implementation of BaseSkill for testing."""
-    
+
     @property
     def name(self) -> str:
         return "mock_skill"
@@ -66,7 +68,7 @@ class MockSkill(BaseSkill):
             skill_name=self.name,
             result="executed",
             confidence_score=1.0,
-            reasoning="mock execution"
+            reasoning="mock execution",
         )
 
 

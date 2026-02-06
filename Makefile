@@ -10,8 +10,8 @@ test:
 
 spec-check:
 	@echo "Checking specs against implementation..."
-	# Placeholder for future spec-compliance script
-	@echo "Specs verified."
+	@chmod +x scripts/spec_check.py
+	@uv run python scripts/spec_check.py
 
 docker-build:
 	@echo "Building Docker image..."

@@ -2,9 +2,8 @@ import logging
 from contextlib import AsyncExitStack
 from typing import Any
 
-from mcp.client.stdio import stdio_client
-
 from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
 
 
 class ChimeraMCPClient:
@@ -13,7 +12,7 @@ class ChimeraMCPClient:
     def __init__(self, command: str, args: list | None = None):
         self.server_params = StdioServerParameters(command=command, args=args or [])
         self.session: ClientSession | None = None
-        self._exit_stack = None
+        self._exit_stack: AsyncExitStack | None = None
 
     async def connect(self):
         """Establish connection with the MCP server."""
@@ -21,7 +20,8 @@ class ChimeraMCPClient:
             self._exit_stack = AsyncExitStack()
             _, write = await self._exit_stack.enter_async_context(stdio_client(self.server_params))
             self.session = await self._exit_stack.enter_async_context(ClientSession(_, write))
-            await self.session.initialize()
+            if self.session:
+                await self.session.initialize()
             logging.info("MCP Client connected and initialized.")
         except Exception as e:
             logging.error(f"Failed to connect to MCP server: {str(e)}")

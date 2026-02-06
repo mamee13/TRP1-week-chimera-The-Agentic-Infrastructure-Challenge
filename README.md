@@ -229,6 +229,9 @@ make spec-check
 ├── tests/                 # Test suite
 ├── personas/              # Persona DNA files (SOUL.md)
 ├── specs/                 # Technical and functional specifications
+├── docs/                  # Additional documentation
+│   ├── HITL_DASHBOARD.md # HITL dashboard design (Phase 2)
+│   └── DATABASE_STRATEGY.md # Database architecture and migration path
 └── mcp-server-mock/       # Mock MCP server for testing
 ```
 
@@ -305,6 +308,5 @@ For security concerns, please see [SECURITY.md](SECURITY.md) for our vulnerabili
 
 ---
 
-**Status:** Orchestrator-Grade Repository | Day 3 Complete  
+**Status:** Orchestrator-Grade Repository | Day 3 Complete
 **Developed for:** TRP1 / FDE Track
-

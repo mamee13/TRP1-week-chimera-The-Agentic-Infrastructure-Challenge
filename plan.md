@@ -64,13 +64,13 @@ project-chimera/
 └── init.py # intentionally minimal
 
 
-> ⚠️ The `src/` directory remains mostly empty by design.  
+> ⚠️ The `src/` directory remains mostly empty by design.
 > This demonstrates **discipline, not incompleteness**.
 
 ---
 
-# DAY 1 — THE STRATEGIST  
-**Focus:** Research, system thinking, architectural intent  
+# DAY 1 — THE STRATEGIST
+**Focus:** Research, system thinking, architectural intent
 **Time Budget:** ~8 hours
 
 ---
