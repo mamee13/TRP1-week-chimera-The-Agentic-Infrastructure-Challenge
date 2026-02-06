@@ -29,7 +29,7 @@ from src.swarm.worker import ChimeraWorker
 async def test_e2e_swarm_workflow():
     """
     Test the complete swarm workflow from campaign goal to validated content.
-    
+
     This test:
     1. Initializes all swarm components (Planner, Worker, Judge, Orchestrator)
     2. Loads a persona from SOUL.md

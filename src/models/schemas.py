@@ -1,24 +1,24 @@
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field
 
 
-class CampaignStatus(str, Enum):
+class CampaignStatus(StrEnum):
     PLANNING = "PLANNING"
     ACTIVE = "ACTIVE"
     PAUSED = "PAUSED"
     COMPLETED = "COMPLETED"
 
-class TaskRole(str, Enum):
+class TaskRole(StrEnum):
     PLANNER = "PLANNER"
     WORKER = "WORKER"
     JUDGE = "JUDGE"
     ORCHESTRATOR = "ORCHESTRATOR"
 
-class TaskStatus(str, Enum):
+class TaskStatus(StrEnum):
     PENDING = "PENDING"
     PROCESSING = "PROCESSING"
     COMPLETED = "COMPLETED"

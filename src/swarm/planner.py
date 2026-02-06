@@ -7,7 +7,7 @@ from src.swarm.base import Planner
 class ChimeraPlanner(Planner):
     """
     Chimera Implementation of the Planner agent.
-    Decomposes campaign goals into a standard sequence: 
+    Decomposes campaign goals into a standard sequence:
     Trend Analysis -> Content Generation -> Persona Validation.
     """
 

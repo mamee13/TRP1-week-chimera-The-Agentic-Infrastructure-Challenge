@@ -22,7 +22,7 @@ class StateManager(ABC):
 class InMemoryStateManager(StateManager):
     """
     Simple in-memory implementation for MVP/Testing.
-    
+
     PRODUCTION MIGRATION PATH:
     - PostgreSQL: Use 'asyncpg' to implement campaigns/tasks persistence using the schema defined in technical.md.
     - Redis: Use 'redis-py' for episodic task queues and caching persona traits.

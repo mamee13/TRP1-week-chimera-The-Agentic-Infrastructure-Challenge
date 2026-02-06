@@ -27,7 +27,8 @@ async def test_full_swarm_mcp_persona_integration():
     await mcp_client.connect()
 
     # 2. Setup Persona
-    soul = Soul.from_file("personas/example_agent/SOUL.md")
+    # 2. Setup Persona
+    # soul = Soul.from_file("personas/example_agent/SOUL.md")  # Unused
 
     # 3. Setup Swarm
     planner = ChimeraPlanner()
