@@ -14,7 +14,7 @@ attrs==25.4.0
     # via
     #   jsonschema
     #   referencing
-authlib==1.6.6
+authlib==1.6.7
     # via weaviate-client
 certifi==2026.1.4
     # via
