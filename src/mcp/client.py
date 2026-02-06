@@ -2,8 +2,9 @@ import logging
 from contextlib import AsyncExitStack
 from typing import Any
 
-from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+
+from mcp import ClientSession, StdioServerParameters
 
 
 class ChimeraMCPClient:
