@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: chimera-app
+    volumes:
+      - .:/app
+      - /app/.venv # Prevent overwriting venv
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    command: python demo_script.py
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: chimera-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: chimera-postgres
+    environment:
+      - POSTGRES_USER=chimera
+      - POSTGRES_PASSWORD=chimera_dev
+      - POSTGRES_DB=chimera_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  redis-data:
+  postgres-data:
