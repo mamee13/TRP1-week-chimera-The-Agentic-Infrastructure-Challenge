@@ -31,14 +31,14 @@ async def test_swarm_end_to_end_flow():
         planner=planner,
         worker=worker,
         judge=judge,
-        state_manager=InMemoryStateManager()
+        state_manager=InMemoryStateManager(),
     )
 
     # Create a dummy campaign
     campaign = Campaign(
         title="Agentic Future",
         goal="Promote the use of autonomous agents in industry.",
-        status=CampaignStatus.PLANNING
+        status=CampaignStatus.PLANNING,
     )
 
     # Run the swarm

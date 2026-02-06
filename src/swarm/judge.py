@@ -25,15 +25,15 @@ class ChimeraJudge(Judge):
         if score >= self.confidence_threshold:
             return JudgeValidationOutput(
                 approval_status=TaskStatus.COMPLETED,
-                feedback="Auto-approved: High confidence and consistency."
+                feedback="Auto-approved: High confidence and consistency.",
             )
         elif score >= 0.7:
             return JudgeValidationOutput(
                 approval_status=TaskStatus.ESC_HITL,
-                feedback=f"Confidence {score} is below threshold {self.confidence_threshold}. Escalating to human review."
+                feedback=f"Confidence {score} is below threshold {self.confidence_threshold}. Escalating to human review.",
             )
         else:
             return JudgeValidationOutput(
                 approval_status=TaskStatus.FAILED,
-                feedback=f"Rejected: Confidence {score} is too low. Reasoning: {worker_output.reasoning}"
+                feedback=f"Rejected: Confidence {score} is too low. Reasoning: {worker_output.reasoning}",
             )

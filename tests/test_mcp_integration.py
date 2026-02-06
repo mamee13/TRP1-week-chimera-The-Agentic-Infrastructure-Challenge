@@ -27,6 +27,7 @@ async def test_mcp_client_connectivity():
 
     await client.disconnect()
 
+
 @pytest.mark.asyncio
 async def test_worker_mcp_bridger_skill():
     server_script = os.path.abspath("mcp-server-mock/server.py")
@@ -40,9 +41,9 @@ async def test_worker_mcp_bridger_skill():
         skill_name="skill_mcp_bridger",
         params={
             "tool_name": "post_content",
-            "arguments": {"platform": "twitter", "content": "Testing MCP Swarm Integration!"}
+            "arguments": {"platform": "twitter", "content": "Testing MCP Swarm Integration!"},
         },
-        persona_id="p1"
+        persona_id="p1",
     )
 
     output = await bridger.execute(task_input)

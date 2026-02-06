@@ -15,13 +15,16 @@ def test_soul_parsing():
     assert "Spec-Driven" in soul.directives[0]
     assert "slang" in soul.forbidden[0]
 
+
 def test_confidence_scoring():
     soul_path = "personas/example_agent/SOUL.md"
     soul = Soul.from_file(soul_path)
     scorer = ConfidenceScorer(soul)
 
     # Good content
-    score_good = scorer.score_content("This architectural approach ensures long-term scalability and governance.")
+    score_good = scorer.score_content(
+        "This architectural approach ensures long-term scalability and governance."
+    )
     assert score_good >= 0.9
 
     # Content with forbidden slang

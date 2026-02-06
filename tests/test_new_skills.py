@@ -15,11 +15,12 @@ async def test_skill_trend_analysis():
         task_id=uuid.uuid4(),
         skill_name="skill_trend_analysis",
         params={"topic": "Ethiopian Coffee"},
-        persona_id="p1"
+        persona_id="p1",
     )
     output = await skill.execute(task_input)
     assert output.confidence_score > 0.9
     assert "viral_potential" in output.result
+
 
 @pytest.mark.asyncio
 async def test_skill_persona_consistency():
@@ -27,11 +28,8 @@ async def test_skill_persona_consistency():
     task_input = WorkerTaskInput(
         task_id=uuid.uuid4(),
         skill_name="skill_persona_consistency",
-        params={
-            "content_to_verify": "Hello, I am an AI.",
-            "soul_context": "Helpful assistant"
-        },
-        persona_id="p1"
+        params={"content_to_verify": "Hello, I am an AI.", "soul_context": "Helpful assistant"},
+        persona_id="p1",
     )
     output = await skill.execute(task_input)
     assert output.result["is_consistent"] is True

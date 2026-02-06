@@ -35,7 +35,7 @@ class ChimeraWorker(Worker):
                 skill_name=skill_name,
                 result=None,
                 confidence_score=0.0,
-                reasoning=f"Skill '{skill_name}' not found or not registered on Worker {self.name}."
+                reasoning=f"Skill '{skill_name}' not found or not registered on Worker {self.name}.",
             )
 
         try:
@@ -46,7 +46,8 @@ class ChimeraWorker(Worker):
             logging.error(f"Error executing skill {skill_name}: {str(e)}")
             return WorkerTaskOutput(
                 task_id=task_input.task_id,
+                skill_name=skill_name,
                 result=None,
                 confidence_score=0.0,
-                reasoning=f"Execution error in skill {skill_name}: {str(e)}"
+                reasoning=f"Execution error in skill {skill_name}: {str(e)}",
             )

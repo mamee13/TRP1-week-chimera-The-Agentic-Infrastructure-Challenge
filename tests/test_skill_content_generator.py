@@ -16,9 +16,9 @@ async def test_skill_content_generator_success():
         params={
             "prompt": "Hello world",
             "persona": "Professional AI",
-            "target_platform": "twitter"
+            "target_platform": "twitter",
         },
-        persona_id="persona_id_1"
+        persona_id="persona_id_1",
     )
 
     output = await skill.execute(task_input)
@@ -28,16 +28,15 @@ async def test_skill_content_generator_success():
     assert "Hello world" in output.result["content"]
     assert "Professional AI" in output.result["content"]
 
+
 @pytest.mark.asyncio
 async def test_skill_content_generator_invalid_params():
     skill = SkillContentGenerator()
     task_input = WorkerTaskInput(
         task_id=uuid.uuid4(),
         skill_name="skill_content_generator",
-        params={
-            "invalid_param": "missing_required_fields"
-        },
-        persona_id="persona_id_1"
+        params={"invalid_param": "missing_required_fields"},
+        persona_id="persona_id_1",
     )
 
     output = await skill.execute(task_input)

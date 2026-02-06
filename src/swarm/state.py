@@ -19,6 +19,7 @@ class StateManager(ABC):
     async def get_campaign_status(self, campaign_id: str) -> Campaign | None:
         pass
 
+
 class InMemoryStateManager(StateManager):
     """
     Simple in-memory implementation for MVP/Testing.
@@ -28,6 +29,7 @@ class InMemoryStateManager(StateManager):
     - Redis: Use 'redis-py' for episodic task queues and caching persona traits.
     - Consistency: Implement OCC via 'state_version' in PostgreSQL updates.
     """
+
     def __init__(self):
         self.campaigns: dict[str, Campaign] = {}
         self.results: dict[str, list[dict[str, Any]]] = {}

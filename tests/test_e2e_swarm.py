@@ -4,6 +4,7 @@ End-to-end integration test for the full Chimera swarm workflow.
 This test validates the complete Planner -> Worker -> Judge -> Orchestrator flow
 using the MCP mock server.
 """
+
 import asyncio
 import os
 from uuid import uuid4
@@ -67,13 +68,13 @@ async def test_e2e_swarm_workflow():
             planner=planner,
             worker=worker,
             judge=judge,
-            state_manager=state_manager
+            state_manager=state_manager,
         )
 
         # Test: Create campaign
         campaign = Campaign(
             title="E2E Test Campaign",
-            goal="Create awareness content about AI agents for testing purposes."
+            goal="Create awareness content about AI agents for testing purposes.",
         )
 
         # Test: Run swarm workflow
@@ -122,13 +123,14 @@ async def test_e2e_judge_validation():
 
     # Test with valid content - include all required fields
     from src.models.schemas import WorkerTaskOutput
+
     valid_output = WorkerTaskOutput(
         task_id=uuid4(),
         skill_name="test_skill",
         result={"content": "This is test content about AI agents."},
         confidence_score=0.9,
         reasoning="Test content meets persona constraints",
-        metadata={}
+        metadata={},
     )
 
     # Use correct method name
@@ -137,6 +139,7 @@ async def test_e2e_judge_validation():
     assert validation_result.approval_status is not None
     # High confidence should be auto-approved
     from src.models.schemas import TaskStatus
+
     assert validation_result.approval_status == TaskStatus.COMPLETED
 
 
@@ -149,10 +152,7 @@ async def test_e2e_state_persistence():
     state_manager = InMemoryStateManager()
 
     # Create test campaign
-    campaign = Campaign(
-        title="State Test Campaign",
-        goal="Test state persistence"
-    )
+    campaign = Campaign(title="State Test Campaign", goal="Test state persistence")
 
     # Save campaign using correct API
     await state_manager.save_campaign(campaign)
@@ -164,12 +164,10 @@ async def test_e2e_state_persistence():
     assert retrieved_campaign.goal == "Test state persistence"
 
     # Save task results
-    await state_manager.save_task_result(str(campaign.id), {
-        "skill": "test_skill",
-        "status": "COMPLETED"
-    })
+    await state_manager.save_task_result(
+        str(campaign.id), {"skill": "test_skill", "status": "COMPLETED"}
+    )
 
     # Verify task results were saved
     assert str(campaign.id) in state_manager.results
     assert len(state_manager.results[str(campaign.id)]) == 1
-

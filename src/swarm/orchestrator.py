@@ -11,7 +11,9 @@ class ChimeraOrchestrator(Orchestrator):
     Manages the lifecycle of a campaign by coordinating Planner, Worker, and Judge.
     """
 
-    def __init__(self, name: str, planner: Planner, worker: Worker, judge: Judge, state_manager: StateManager):
+    def __init__(
+        self, name: str, planner: Planner, worker: Worker, judge: Judge, state_manager: StateManager
+    ):
         super().__init__(name)
         self.planner = planner
         self.worker = worker
@@ -20,11 +22,7 @@ class ChimeraOrchestrator(Orchestrator):
 
     async def monitor_health(self) -> dict[str, bool]:
         """Simple health check of components."""
-        return {
-            "planner": True,
-            "worker": True,
-            "judge": True
-        }
+        return {"planner": True, "worker": True, "judge": True}
 
     async def run_swarm(self, campaign: Campaign):
         """
@@ -57,18 +55,24 @@ class ChimeraOrchestrator(Orchestrator):
                 "skill": task.skill_name,
                 "status": validation.approval_status,
                 "output": worker_output.model_dump(),
-                "feedback": validation.feedback
+                "feedback": validation.feedback,
             }
 
             # Persist result
             await self.state_manager.save_task_result(str(campaign.id), res_entry)
 
             if validation.approval_status == TaskStatus.COMPLETED:
-                logging.info(f"[SUCCESS] Task {task.task_id} approved. Result size: {len(str(worker_output.result))} chars.")
+                logging.info(
+                    f"[SUCCESS] Task {task.task_id} approved. Result size: {len(str(worker_output.result))} chars."
+                )
             elif validation.approval_status == TaskStatus.ESC_HITL:
-                logging.warning(f"[ESC_HITL] Task {task.task_id} requires human review. Reason: {validation.feedback}")
+                logging.warning(
+                    f"[ESC_HITL] Task {task.task_id} requires human review. Reason: {validation.feedback}"
+                )
             else:
-                logging.error(f"[FAILURE] Task {task.task_id} rejected. Initiating Level 2 recovery path.")
+                logging.error(
+                    f"[FAILURE] Task {task.task_id} rejected. Initiating Level 2 recovery path."
+                )
 
             results.append(res_entry)
 

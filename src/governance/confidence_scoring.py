@@ -27,7 +27,7 @@ class ConfidenceScorer:
 
         # Check brand alignment
         if len(content) < 20:
-            penalty += 0.1 # Too short, not sophisticated enough
+            penalty += 0.1  # Too short, not sophisticated enough
 
         final_score = max(0.0, base_score - penalty)
         return final_score

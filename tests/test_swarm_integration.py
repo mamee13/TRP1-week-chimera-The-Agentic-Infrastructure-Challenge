@@ -47,14 +47,14 @@ async def test_full_swarm_mcp_persona_integration():
         planner=planner,
         worker=worker,
         judge=judge,
-        state_manager=state_manager
+        state_manager=state_manager,
     )
 
     # 4. Define Campaign Goal
     campaign = Campaign(
         title="Web3 Future",
         goal="Post a sophisticated tweet about the intersection of AI and Web3.",
-        status=CampaignStatus.PLANNING
+        status=CampaignStatus.PLANNING,
     )
 
     # 5. Execute Swarm
@@ -68,6 +68,7 @@ async def test_full_swarm_mcp_persona_integration():
     # For now, verify that the existing flow works with the new components.
 
     await mcp_client.disconnect()
+
 
 @pytest.mark.asyncio
 async def test_worker_calling_mcp_tool_via_orchestrator():
@@ -86,9 +87,9 @@ async def test_worker_calling_mcp_tool_via_orchestrator():
         skill_name="skill_mcp_bridger",
         params={
             "tool_name": "post_content",
-            "arguments": {"platform": "twitter", "content": "Autonomous agents are rising."}
+            "arguments": {"platform": "twitter", "content": "Autonomous agents are rising."},
         },
-        persona_id="p1"
+        persona_id="p1",
     )
 
     output = await worker.perform_task(task)

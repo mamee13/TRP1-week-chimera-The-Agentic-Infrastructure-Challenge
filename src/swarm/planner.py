@@ -26,7 +26,7 @@ class ChimeraPlanner(Planner):
             task_id=uuid4(),
             skill_name="skill_trend_analysis",
             params={"topic": campaign.title, "depth": "high"},
-            persona_id="default_persona"
+            persona_id="default_persona",
         )
         tasks.append(trend_task)
 
@@ -38,9 +38,9 @@ class ChimeraPlanner(Planner):
             params={
                 "prompt": f"Generate a viral post about {campaign.title} based on {campaign.goal}",
                 "persona": "Sophisticated Influencer",
-                "target_platform": "twitter"
+                "target_platform": "twitter",
             },
-            persona_id="default_persona"
+            persona_id="default_persona",
         )
         tasks.append(content_task)
 
@@ -50,9 +50,9 @@ class ChimeraPlanner(Planner):
             skill_name="skill_persona_consistency",
             params={
                 "content_to_verify": "PENDING_CONTENT",
-                "soul_context": "The persona is sophisticated and tech-savvy."
+                "soul_context": "The persona is sophisticated and tech-savvy.",
             },
-            persona_id="default_persona"
+            persona_id="default_persona",
         )
         tasks.append(consistency_task)
 
