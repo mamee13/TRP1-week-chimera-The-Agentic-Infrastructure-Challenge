@@ -75,6 +75,51 @@ Here's a minimal example to run the autonomous swarm workflow:
 uv run python demo_script.py
 ```
 
+### Quickstart
+Follow these steps to run the local mock MCP server and the demo script (the demo will auto-start the mock server):
+
+1. Install project dependencies (uses `uv`):
+
+```bash
+uv sync
+```
+
+2. Run the demo (starts `mcp-server-mock` automatically and runs a short swarm):
+
+```bash
+uv run python demo_script.py
+```
+
+3. Expected console output (abridged):
+
+```text
+==================================================
+🚀 PROJECT CHIMERA: AUTONOMOUS INFRASTRUCTURE DEMO
+==================================================
+
+Step 1: Initializing Swarm Infrastructure...
+Loaded Persona: Chimera Alpha
+Swarm Components: Planner, Worker, Judge, Orchestrator [READY]
+
+Step 2: Receiving High-Level Goal...
+CAMPAIGN GOAL: Launch a awareness campaign about the impact of AI agents on the Ethiopian tech ecosystem.
+
+Step 3: Running the Swarm Cycle [Planning -> Execution -> Validation]
+------------------------------
+[INFO] Generated plan with 3 tasks.
+[INFO] [SUCCESS] Task <uuid> approved. Result size: 257 chars.
+[INFO] [SUCCESS] Task <uuid> approved. Result size: 300 chars.
+------------------------------
+
+Step 4: Final Campaign Output Summary
+✅ Skill: skill_trend_analysis -> Status: COMPLETED
+✅ Skill: skill_content_generator -> Status: COMPLETED
+  Generated Content Preview: [Generated for twitter] Generate a viral post about Agentic ...
+
+🏁 DEMO COMPLETE: ADHERENCE TO SPECIFICATIONS VERIFIED
+==================================================
+```
+
 **Expected Output:**
 ```
 ==================================================

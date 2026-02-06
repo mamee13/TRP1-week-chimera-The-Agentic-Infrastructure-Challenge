@@ -5,7 +5,7 @@
 We take the security of Project Chimera seriously. If you discover a security vulnerability, please follow these steps:
 
 1. **Do NOT** open a public GitHub issue
-2. Email security concerns to: [your-email@example.com] (replace with actual contact)
+2. Email security concerns to: mamaruyirga1394@gmail.com
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
@@ -69,8 +69,8 @@ Project Chimera is an autonomous agent infrastructure that:
 2. **MCP Credentials**
    ```bash
    # Example .env file (DO NOT COMMIT)
-   MCP_SERVER_URL=https://your-mcp-server.com
-   MCP_API_KEY=your-secret-key
+   MCP_SERVER_URL=http://localhost:8000
+   MCP_API_KEY=sk-test-123456
    ```
 
 3. **Database Credentials**
@@ -173,7 +173,7 @@ if task_output.confidence_score < 0.8:
 ### Data Deletion Requests
 
 To request data deletion:
-1. Email: [your-email@example.com]
+1. Email: mamaruyirga1394@gmail.com
 2. Include: Campaign ID, persona ID, or user identifier
 3. Response time: 30 days
 
@@ -211,4 +211,4 @@ To request data deletion:
 ---
 
 **Last Updated**: 2026-02-06  
-**Security Contact**: [your-email@example.com]
+**Security Contact**: mamaruyirga1394@gmail.com
