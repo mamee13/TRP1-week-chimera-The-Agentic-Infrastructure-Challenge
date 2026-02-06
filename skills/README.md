@@ -24,3 +24,15 @@ Skills are internal, reusable logic packages invoked by the Swarm Workers. Every
 - **MCP-Only:** Every skill must interact with the external world ONLY through an MCP tool.
 - **Stateless:** Workers execute skills in an ephemeral, stateless manner.
 - **Traceability:** Every skill invocation must be logged with its reasoning path.
+
+## Testing Skills
+All skills must adhere to the `WorkerTaskInput` and `WorkerTaskOutput` interfaces.
+
+### Running Interface Tests
+To verify that your skill implementation complies with the base system contracts, run the interface tests:
+
+```bash
+make test
+```
+
+Specific interface tests are located in `tests/test_skills_interface.py`.

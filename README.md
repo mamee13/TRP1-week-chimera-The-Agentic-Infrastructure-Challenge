@@ -66,6 +66,12 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 
+#### Option 3: Using Makefile (Convenience)
+```bash
+# Install dependencies
+make setup
+```
+
 ### Quick Start Example
 
 Here's a minimal example to run the autonomous swarm workflow:
@@ -170,6 +176,10 @@ python mcp-server-mock/server.py
 
 ```bash
 # Run all tests
+# Run all tests (via Makefile)
+make test
+
+# Run all tests (via uv directly)
 uv run pytest
 
 # Run with coverage report
@@ -197,7 +207,11 @@ uv run mypy src/
 
 # Install pre-commit hooks (runs checks automatically on commit)
 uv run pre-commit install
+uv run pre-commit install
 uv run pre-commit run --all-files
+
+# Verify spec compliance
+make spec-check
 ```
 
 ## Development
@@ -241,13 +255,16 @@ Currently, no environment variables are required for basic operation. For produc
 
 ```bash
 # Build the image
-docker build -t chimera:latest .
+make docker-build
+# Or manually: docker build -t chimera:latest .
 
 # Run the demo
 docker run --rm chimera:latest
 
 # Run tests in container
-docker run --rm chimera:latest uv run pytest
+# Run tests in container
+make docker-test
+# Or manually: docker run --rm chimera:latest uv run pytest
 ```
 
 ### Development with Dev Container
