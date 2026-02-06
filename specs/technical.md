@@ -61,13 +61,19 @@ class WorkerTaskOutput(BaseModel):
 ## 3. Hybrid Data Layer
 - **PostgreSQL:** ACID transactional state.
 - **Weaviate:** Semantic memory (Vector DB).
+  - **Vectorizer:** `text2vec-openai` or `text2vec-transformers`
   - **Class: `PersonaMemory`**
     - `persona_id`: text (Keyword)
     - `content`: text (Vectorized)
     - `category`: text (Episodic, Semantic, SOUL)
     - `timestamp`: date
 - **Redis:** Episodic context (Task/Review Queues).
+  - **Key Patterns:**
+    - `task_queue:{campaign_id}`: List of pending `WorkerTaskInput`
+    - `review_queue:{campaign_id}`: List of `WorkerTaskOutput` for Judge review
+    - `persona_cache:{persona_id}`: Hash of cached persona traits
 
 ## 4. MCP Communication
-- All external interactions via standardized MCP tool calls.
-- Standardized error handling and retry logic.
+- **Client Protocol:** Stdio-based MCP Client Session.
+- **Error Handling:** Standardized `BaseModel` error responses with confidence = 0.0.
+- **Rate Limiting:** Managed at the Orchestrator level via Redis `INCR` keys.

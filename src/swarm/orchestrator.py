@@ -63,11 +63,11 @@ class ChimeraOrchestrator(Orchestrator):
             await self.state_manager.save_task_result(str(campaign.id), res_entry)
             
             if validation.approval_status == TaskStatus.COMPLETED:
-                logging.info(f"Task {task.task_id} COMPLETED and Approved.")
+                logging.info(f"[SUCCESS] Task {task.task_id} approved. Result size: {len(str(worker_output.result))} chars.")
             elif validation.approval_status == TaskStatus.ESC_HITL:
-                logging.info(f"Task {task.task_id} ESCALATED to HITL: {validation.feedback}")
+                logging.warning(f"[ESC_HITL] Task {task.task_id} requires human review. Reason: {validation.feedback}")
             else:
-                logging.warning(f"Task {task.task_id} FAILED: {validation.feedback}")
+                logging.error(f"[FAILURE] Task {task.task_id} rejected. Initiating Level 2 recovery path.")
             
             results.append(res_entry)
             
