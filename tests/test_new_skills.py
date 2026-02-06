@@ -1,9 +1,12 @@
-import pytest
 import asyncio
 import uuid
-from src.models.schemas import WorkerTaskInput
-from skills.skill_trend_analysis.executor import SkillTrendAnalysis
+
+import pytest
+
 from skills.skill_persona_consistency.executor import SkillPersonaConsistency
+from skills.skill_trend_analysis.executor import SkillTrendAnalysis
+from src.models.schemas import WorkerTaskInput
+
 
 @pytest.mark.asyncio
 async def test_skill_trend_analysis():

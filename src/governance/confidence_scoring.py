@@ -1,10 +1,11 @@
-from typing import List, Dict, Any
-from src.persona.soul import Soul
 import re
+
+from src.persona.soul import Soul
+
 
 class ConfidenceScorer:
     """Evaluates content against persona consistency and safety rules."""
-    
+
     def __init__(self, soul: Soul):
         self.soul = soul
 
@@ -15,7 +16,7 @@ class ConfidenceScorer:
         """
         base_score = 0.95
         penalty = 0.0
-        
+
         # Check forbidden actions (Simplified simulation)
         for action in self.soul.forbidden:
             # Example: "generic slang" -> penalty if found
@@ -23,11 +24,11 @@ class ConfidenceScorer:
                 slang_terms = [r"\blit\b", r"\bfam\b", r"\bbruh\b"]
                 if any(re.search(term, content.lower()) for term in slang_terms):
                     penalty += 0.3
-        
+
         # Check brand alignment
-        if len(content) < 20: 
+        if len(content) < 20:
             penalty += 0.1 # Too short, not sophisticated enough
-            
+
         final_score = max(0.0, base_score - penalty)
         return final_score
 

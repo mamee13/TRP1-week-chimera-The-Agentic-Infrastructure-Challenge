@@ -1,8 +1,11 @@
-import pytest
 import asyncio
 import uuid
-from src.models.schemas import WorkerTaskInput
+
+import pytest
+
 from skills.skill_content_generator.executor import SkillContentGenerator
+from src.models.schemas import WorkerTaskInput
+
 
 @pytest.mark.asyncio
 async def test_skill_content_generator_success():
@@ -17,9 +20,9 @@ async def test_skill_content_generator_success():
         },
         persona_id="persona_id_1"
     )
-    
+
     output = await skill.execute(task_input)
-    
+
     assert output.task_id == task_input.task_id
     assert output.confidence_score == 0.95
     assert "Hello world" in output.result["content"]
@@ -36,8 +39,8 @@ async def test_skill_content_generator_invalid_params():
         },
         persona_id="persona_id_1"
     )
-    
+
     output = await skill.execute(task_input)
-    
+
     assert output.confidence_score == 0.0
     assert "Invalid parameters" in output.reasoning

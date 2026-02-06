@@ -1,13 +1,13 @@
-from typing import Any
-from src.models.schemas import WorkerTaskOutput, JudgeValidationOutput, TaskStatus
+from src.models.schemas import JudgeValidationOutput, TaskStatus, WorkerTaskOutput
 from src.swarm.base import Judge
+
 
 class ChimeraJudge(Judge):
     """
     Chimera Implementation of the Judge agent.
     Validates content based on confidence scores and persona consistency rules.
     """
-    
+
     def __init__(self, name: str = "ChimeraJudge", confidence_threshold: float = 0.9):
         super().__init__(name)
         self.confidence_threshold = confidence_threshold
@@ -21,7 +21,7 @@ class ChimeraJudge(Judge):
         - confidence_score < 0.7: FAILED (Reject)
         """
         score = worker_output.confidence_score
-        
+
         if score >= self.confidence_threshold:
             return JudgeValidationOutput(
                 approval_status=TaskStatus.COMPLETED,

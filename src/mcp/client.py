@@ -1,15 +1,18 @@
-from typing import Any, Dict, Optional, List
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-from contextlib import AsyncExitStack
 import logging
+from contextlib import AsyncExitStack
+from typing import Any
+
+from mcp.client.stdio import stdio_client
+
+from mcp import ClientSession, StdioServerParameters
+
 
 class ChimeraMCPClient:
     """Wrapper for MCP sessions to facilitate tool calling by swarm agents."""
-    
-    def __init__(self, command: str, args: Optional[list] = None):
+
+    def __init__(self, command: str, args: list | None = None):
         self.server_params = StdioServerParameters(command=command, args=args or [])
-        self.session: Optional[ClientSession] = None
+        self.session: ClientSession | None = None
         self._exit_stack = None
 
     async def connect(self):
@@ -24,11 +27,11 @@ class ChimeraMCPClient:
             logging.error(f"Failed to connect to MCP server: {str(e)}")
             raise
 
-    async def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Any:
+    async def call_tool(self, tool_name: str, arguments: dict[str, Any]) -> Any:
         """Call a specific tool on the connected MCP server."""
         if not self.session:
             raise RuntimeError("MCP Client is not connected.")
-        
+
         try:
             result = await self.session.call_tool(tool_name, arguments)
             return result.content

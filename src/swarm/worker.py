@@ -1,20 +1,20 @@
-from typing import Dict, Any, Optional
-from src.models.schemas import WorkerTaskInput, WorkerTaskOutput
-from src.swarm.base import Worker
+import logging
+
 from skills.base import BaseSkill
 from src.mcp.client import ChimeraMCPClient
-import importlib
-import logging
+from src.models.schemas import WorkerTaskInput, WorkerTaskOutput
+from src.swarm.base import Worker
+
 
 class ChimeraWorker(Worker):
     """
     Chimera Implementation of the Worker agent.
     Executes tasks by dynamically loading the required skill or calling MCP tools.
     """
-    
-    def __init__(self, name: str = "ChimeraWorker", mcp_client: Optional[ChimeraMCPClient] = None):
+
+    def __init__(self, name: str = "ChimeraWorker", mcp_client: ChimeraMCPClient | None = None):
         super().__init__(name)
-        self.skills: Dict[str, BaseSkill] = {}
+        self.skills: dict[str, BaseSkill] = {}
         self.mcp_client = mcp_client
 
     def register_skill(self, skill: BaseSkill):
@@ -27,7 +27,7 @@ class ChimeraWorker(Worker):
         If the skill is not registered, it attempts to load it (in a real system).
         """
         skill_name = task_input.skill_name
-        
+
         if skill_name not in self.skills:
             # Simple dynamic loading logic or error
             return WorkerTaskOutput(
@@ -37,7 +37,7 @@ class ChimeraWorker(Worker):
                 confidence_score=0.0,
                 reasoning=f"Skill '{skill_name}' not found or not registered on Worker {self.name}."
             )
-        
+
         try:
             skill = self.skills[skill_name]
             output = await skill.execute(task_input)

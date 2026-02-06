@@ -1,6 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional, Dict
-from src.models.schemas import Campaign, WorkerTaskInput, WorkerTaskOutput, JudgeValidationOutput, TaskStatus
+
+from src.models.schemas import (
+    Campaign,
+    JudgeValidationOutput,
+    WorkerTaskInput,
+    WorkerTaskOutput,
+)
+
 
 class BaseSwarmMember(ABC):
     """Base class for all FastRender Swarm members."""
@@ -13,12 +19,12 @@ class Planner(BaseSwarmMember):
     Maintains the 'Big Picture' and handles dynamic re-planning based on feedback.
     """
     @abstractmethod
-    async def create_plan(self, campaign: Campaign) -> List[WorkerTaskInput]:
+    async def create_plan(self, campaign: Campaign) -> list[WorkerTaskInput]:
         """Convert a campaign goal into a Directed Acyclic Graph (DAG) of Worker tasks."""
         pass
 
     @abstractmethod
-    async def replan(self, campaign: Campaign, feedback: str) -> List[WorkerTaskInput]:
+    async def replan(self, campaign: Campaign, feedback: str) -> list[WorkerTaskInput]:
         """Adjust the existing plan based on execution failures or environment context shifts."""
         pass
 
@@ -48,7 +54,7 @@ class Orchestrator(BaseSwarmMember):
     Coordinates the transaction-level movement between Planner, Worker, and Judge.
     """
     @abstractmethod
-    async def monitor_health(self) -> Dict[str, bool]:
+    async def monitor_health(self) -> dict[str, bool]:
         """Perform health checks on active agents and MCP servers."""
         pass
 

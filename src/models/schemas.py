@@ -1,8 +1,10 @@
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any
 from uuid import UUID, uuid4
+
 from pydantic import BaseModel, Field
+
 
 class CampaignStatus(str, Enum):
     PLANNING = "PLANNING"
@@ -34,7 +36,7 @@ class Campaign(BaseModel):
 class WorkerTaskInput(BaseModel):
     task_id: UUID = Field(default_factory=uuid4)
     skill_name: str
-    params: Dict[str, Any]
+    params: dict[str, Any]
     persona_id: str
 
 class WorkerTaskOutput(BaseModel):
@@ -46,8 +48,8 @@ class WorkerTaskOutput(BaseModel):
 
 class JudgeValidationInput(BaseModel):
     worker_output: WorkerTaskOutput
-    persona_constraints: Dict[str, Any]
+    persona_constraints: dict[str, Any]
 
 class JudgeValidationOutput(BaseModel):
     approval_status: TaskStatus
-    feedback: Optional[str] = None
+    feedback: str | None = None
