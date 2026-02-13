@@ -125,7 +125,7 @@ python-multipart==0.0.22
     # via mcp
 pyyaml==6.0.3
     # via pre-commit
-redis==7.1.0
+redis==7.1.1
     # via trp1-week-chimera-the-agentic-infrastructure-challenge (pyproject.toml)
 referencing==0.37.0
     # via
