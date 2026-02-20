@@ -46,7 +46,7 @@ distlib==0.4.0
     # via virtualenv
 filelock==3.20.3
     # via virtualenv
-grpcio==1.76.0
+grpcio==1.78.1
     # via weaviate-client
 h11==0.16.0
     # via
