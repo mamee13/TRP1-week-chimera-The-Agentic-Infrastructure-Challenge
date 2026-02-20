@@ -44,7 +44,7 @@ deprecation==2.1.0
     # via weaviate-client
 distlib==0.4.0
     # via virtualenv
-filelock==3.20.3
+filelock==3.24.3
     # via virtualenv
 grpcio==1.76.0
     # via weaviate-client
