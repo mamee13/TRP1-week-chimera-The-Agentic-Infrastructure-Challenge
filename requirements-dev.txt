@@ -152,7 +152,7 @@ rpds-py==0.30.0
     # via
     #   jsonschema
     #   referencing
-ruff==0.15.0
+ruff==0.15.2
     # via
     #   trp1-week-chimera-the-agentic-infrastructure-challenge (pyproject.toml)
     #   mermaid-py
